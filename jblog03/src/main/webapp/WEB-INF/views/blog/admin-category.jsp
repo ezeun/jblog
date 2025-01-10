@@ -14,17 +14,17 @@
 		<div id="header">
 			<h1>Spring 이야기</h1>
 			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/blog/admin/default">블로그 관리</a></li>
 			</ul>
 		</div>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/admin/default">기본설정</a></li>
 					<li class="selected">카테고리</li>
-					<li><a href="">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/admin/write">글작성</a></li>
 				</ul>
 		      	<table class="admin-cat">
 		      		<tr>
