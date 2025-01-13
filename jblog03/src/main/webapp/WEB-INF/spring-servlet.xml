@@ -12,8 +12,28 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	<mvc:annotation-driven/>
 	
+	<!-- DefaultServlet Handler -->
 	<mvc:default-servlet-handler/>
 	
+	<!-- mvc url-resource mapping -->
+	<mvc:resources mapping="/assets/upload-images/**" location="file:/jblog-uploads"/>
+	
+	<!-- MultipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+	
+	<!-- Interceptors -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth"/>
+			<bean class="jblog.security.LoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout"/>
+			<bean class="jblog.security.LogoutInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!--  View Resolver  -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 	   <property name="prefix" value="/WEB-INF/views/" />
@@ -27,6 +47,6 @@
 	</bean>
 	
 	<context:annotation-config />
-	<context:component-scan base-package="jblog.controller" />
+	<context:component-scan base-package="jblog.controller, jblog.service, jblog.repository" />
 
 </beans>

@@ -1,6 +1,8 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!doctype html>
 <html>
@@ -18,7 +20,13 @@
 			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 			<li><a href="${pageContext.request.contextPath}/blog">내블로그</a></li>
 		</ul>
-		<form class="join-form" id="join-form" method="post" action="${pageContext.request.contextPath}/user/join">
+		
+		<form:form 
+		 	    modelAttribute="userVo"	
+			    class="join-form" 
+			    id="join-form" 
+			    method="post" 
+			    action="${pageContext.request.contextPath}/user/join">
 			<label class="block-label" for="name">이름</label>
 			<input id="name"name="name" type="text" value="">
 			
@@ -38,7 +46,7 @@
 
 			<input type="submit" value="가입하기">
 
-		</form>
+		</form:form>
 	</div>
 </body>
 </html>
