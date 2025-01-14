@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.ServletContext;
 import jblog.service.BlogService;
+import jblog.service.CategoryService;
 import jblog.service.FileUploadService;
 import jblog.vo.BlogVo;
 
@@ -22,12 +23,15 @@ import jblog.vo.BlogVo;
 @RequestMapping("/{id:(?!assets).*}") //사용자ID (/jblog/assets는 제외)
 public class BlogController {
 	private final BlogService blogService;
+	private final CategoryService categoryService;
 	private final FileUploadService fileUploadService;
 	
 	public BlogController(BlogService blogService,
+						  CategoryService categoryService,
 						  FileUploadService fileUploadService) {
 		this.blogService = blogService;
 		this.fileUploadService = fileUploadService;
+		this.categoryService = categoryService;
 	}
 	
 	@GetMapping({"", "/{path1}", "/{path1}/{path2}"})
@@ -90,6 +94,7 @@ public class BlogController {
 			@PathVariable("id") String id,
 			Model model) {
 		model.addAttribute("blogVo", blogService.getBlog(id));
+		model.addAttribute("list", categoryService.getCategoryList(id));
 		return "blog/admin-category";
 	}
 	
