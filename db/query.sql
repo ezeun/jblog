@@ -10,6 +10,7 @@ insert blog values('ssafy', 'ssafy의 블로그', '/assets/images/spring-logo.jp
 
 select * from category;
 delete from category;
+insert category values(null, '일상', '테스트용 일상 카테고리입니다.', 'ssafy');
 
 select * from post;
 delete from post;

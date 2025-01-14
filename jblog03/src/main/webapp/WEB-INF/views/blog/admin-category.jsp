@@ -41,7 +41,7 @@
 						<tr>
 							<td>${listCount-index.count+1}</td>
 							<td>${vo.name}</td>
-							<td>3</td>
+							<td>${vo.postCnt}</td>
 							<td>${vo.description}</td>
 							<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
 						</tr>
