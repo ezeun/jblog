@@ -13,7 +13,7 @@ public class BlogController {
 		return "blog/main";
 	}
 	
-	@GetMapping("/admin/default")
+	@GetMapping("/admin")
 	public String adminDefault() {
 		return "blog/admin-default";
 	}
