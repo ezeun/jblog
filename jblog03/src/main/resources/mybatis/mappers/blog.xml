@@ -3,5 +3,22 @@
 
 <mapper namespace="blog">
 	
+	<select id="findOne" parameterType="string" resultType="blogvo" >
+		<![CDATA[
+			select blog_id as blogId,
+				   title,
+				   profile
+			from blog
+			where blog_id=#{id}
+		]]>
+	</select>	
 	
+	<update id="update" parameterType="blogvo">
+		<![CDATA[
+			update blog
+				set title = #{title}, 
+					profile = #{profile}
+				where blog_id=#{blogId}
+		]]>		
+	</update>
 </mapper>
