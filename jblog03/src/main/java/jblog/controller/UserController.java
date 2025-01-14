@@ -49,6 +49,9 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
-	
-
+	@PostMapping("/auth")
+	public String auth() {
+	    // 이 메서드는 인터셉터에서 요청이 처리되므로 일반적으로 호출되지 않습니다.
+	    return "redirect:/";
+	}
 }
