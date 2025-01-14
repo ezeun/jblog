@@ -3,5 +3,12 @@
 
 <mapper namespace="post">
 	
+	<insert id="insertDefault" parameterType="map">
+		<![CDATA[
+			insert 
+				into post 
+			values(null, '기본 글의 제목', '기본 글의 내용입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다.', now(), #{categoryId})		
+		]]>
+	</insert>
 	
 </mapper>

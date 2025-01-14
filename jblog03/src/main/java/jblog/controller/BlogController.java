@@ -23,17 +23,11 @@ import jblog.vo.BlogVo;
 public class BlogController {
 	private final BlogService blogService;
 	private final FileUploadService fileUploadService;
-	private final ServletContext servletContext;
-	private final ApplicationContext applicationContext;
 	
 	public BlogController(BlogService blogService,
-						  FileUploadService fileUploadService,
-						  ServletContext servletContext,
-						  ApplicationContext applicationContext) {
+						  FileUploadService fileUploadService) {
 		this.blogService = blogService;
 		this.fileUploadService = fileUploadService;
-		this.servletContext = servletContext;
-		this.applicationContext = applicationContext;
 	}
 	
 	@GetMapping({"", "/{path1}", "/{path1}/{path2}"})
@@ -88,18 +82,22 @@ public class BlogController {
 //		BeanUtils.copyProperties(blogVo, blog);
 		
 		String blogId = blogVo.getBlogId();
-		return "redirect:/" + blogId; //수정
+		return "redirect:/" + blogId; 
 	}
 	
 	@GetMapping("/admin/category")
 	public String adminCategory(
-			@PathVariable("id") String id) {
+			@PathVariable("id") String id,
+			Model model) {
+		model.addAttribute("blogVo", blogService.getBlog(id));
 		return "blog/admin-category";
 	}
 	
 	@GetMapping("/admin/write")
 	public String adminWrite(
-			@PathVariable("id") String id) {
+			@PathVariable("id") String id,
+			Model model) {
+		model.addAttribute("blogVo", blogService.getBlog(id));
 		return "blog/admin-write";
 	}
 }

@@ -13,6 +13,10 @@ public class BlogRepository {
 		this.sqlSession = sqlSession;
 	}	
 	
+	public int insert(String blogId) {
+		return sqlSession.insert("blog.insert", blogId);
+	}
+	
 	public BlogVo findOne(String id) {
 		return sqlSession.selectOne("blog.findOne", id);
 	}

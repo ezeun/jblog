@@ -3,4 +3,12 @@
 
 <mapper namespace="category">
 
+	<insert id="insertDefault" parameterType="map" useGeneratedKeys="true" keyProperty="categoryId">
+		<![CDATA[
+			insert 
+				into category 
+			values(null, '미분류', '기본 카테고리입니다.', #{blogId})		
+		]]>
+	</insert>
+	
 </mapper>
