@@ -25,4 +25,13 @@
 		]]>
 	</select>
 	
+	
+	<insert id="insert" parameterType="categoryvo">
+		<![CDATA[
+			insert 
+				into category 
+			values(null, #{name}, #{description}, #{blogId})		
+		]]>
+	</insert>
+	
 </mapper>

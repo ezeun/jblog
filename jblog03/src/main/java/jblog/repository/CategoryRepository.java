@@ -23,7 +23,7 @@ public class CategoryRepository {
         params.put("blogId", blogId); // 블로그 ID를 매개변수로 전달
         sqlSession.insert("category.insertDefault", params);
         
-        // 삽입된 카테고리 ID 반환
+        // 삽입된 카테고리 ID 반환 (기본 post를 넣기 위함)
         Object result = params.get("categoryId");
         if (result instanceof BigInteger) { // MyBatis가 반환한 값을 Long으로 변환
             return ((BigInteger) result).longValue();
@@ -34,5 +34,9 @@ public class CategoryRepository {
 
 	public List<CategoryVo> findAll(String blogId) {
 		return sqlSession.selectList("category.findAll", blogId);
+	}
+
+	public int insert(CategoryVo categoryVo) {
+		return sqlSession.insert("category.insert", categoryVo);
 	}
 }

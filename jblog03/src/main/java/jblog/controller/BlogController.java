@@ -2,8 +2,6 @@ package jblog.controller;
 
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletContext;
 import jblog.service.BlogService;
 import jblog.service.CategoryService;
 import jblog.service.FileUploadService;
 import jblog.vo.BlogVo;
+import jblog.vo.CategoryVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}") //사용자ID (/jblog/assets는 제외)
@@ -34,6 +32,7 @@ public class BlogController {
 		this.categoryService = categoryService;
 	}
 	
+	/* 블로그 메인페이지 */
 	@GetMapping({"", "/{path1}", "/{path1}/{path2}"})
 	public String main(
 			@PathVariable("id") String id,
@@ -60,6 +59,7 @@ public class BlogController {
 		return "blog/main";
 	}
 	
+	/* 블로그 관리 기본설정 페이지 */
 	// @Auth 추천
 	@GetMapping("/admin")
 	public String adminDefault(
@@ -68,7 +68,6 @@ public class BlogController {
 		model.addAttribute("blogVo", blogService.getBlog(id));
 		return "blog/admin-default";
 	}
-	
 	@PostMapping("/admin/update")
 	public String update(BlogVo blogVo,
 						@RequestParam("file") MultipartFile file) {
@@ -78,17 +77,11 @@ public class BlogController {
 		}
 		blogService.updateBlog(blogVo);
 		
-		// update servlet context bean
-//		servletContext.setAttribute("blogVo", blogVo);
-		
-		// update appliction context bean
-//		BlogVo blog = applicationContext.getBean(BlogVo.class);
-//		BeanUtils.copyProperties(blogVo, blog);
-		
 		String blogId = blogVo.getBlogId();
 		return "redirect:/" + blogId; 
 	}
 	
+	/* 블로그 관리 카테고리 페이지 */
 	@GetMapping("/admin/category")
 	public String adminCategory(
 			@PathVariable("id") String id,
@@ -97,7 +90,13 @@ public class BlogController {
 		model.addAttribute("list", categoryService.getCategoryList(id));
 		return "blog/admin-category";
 	}
+	@PostMapping("/admin/category/add")
+	public String addCategory(CategoryVo categoryVo) {
+		categoryService.addCategory(categoryVo);
+		return "redirect:/" + categoryVo.getBlogId() + "/admin/category"; 
+	}
 	
+	/* 블로그 관리 글작성 페이지 */
 	@GetMapping("/admin/write")
 	public String adminWrite(
 			@PathVariable("id") String id,

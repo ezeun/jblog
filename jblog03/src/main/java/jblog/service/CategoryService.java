@@ -19,4 +19,8 @@ public class CategoryService {
 		return categoryRepository.findAll(blogId);
 	}
 
+	public void addCategory(CategoryVo categoryVo) {
+		categoryRepository.insert(categoryVo);
+	}
+
 }
