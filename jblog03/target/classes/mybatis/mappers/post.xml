@@ -11,4 +11,12 @@
 		]]>
 	</insert>
 	
+	<delete id="deleteByCategoryId" parameterType="long">
+		<![CDATA[		
+			delete 
+				from post 
+				where category_id = #{id}
+		]]>	
+	</delete>
+	
 </mapper>

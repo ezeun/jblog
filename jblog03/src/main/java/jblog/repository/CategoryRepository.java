@@ -39,4 +39,8 @@ public class CategoryRepository {
 	public int insert(CategoryVo categoryVo) {
 		return sqlSession.insert("category.insert", categoryVo);
 	}
+
+	public int deleteById(Long categoryId) {
+		return sqlSession.delete("category.deleteById", categoryId);
+	}
 }

@@ -69,7 +69,9 @@ public class BlogController {
 		return "blog/admin-default";
 	}
 	@PostMapping("/admin/update")
-	public String update(BlogVo blogVo,
+	public String update(
+						@PathVariable("id") String id,
+						BlogVo blogVo,
 						@RequestParam("file") MultipartFile file) {
 		String profile = fileUploadService.restore(file);
 		if(profile != null) {
@@ -77,8 +79,7 @@ public class BlogController {
 		}
 		blogService.updateBlog(blogVo);
 		
-		String blogId = blogVo.getBlogId();
-		return "redirect:/" + blogId; 
+		return "redirect:/" + id; 
 	}
 	
 	/* 블로그 관리 카테고리 페이지 */
@@ -91,9 +92,18 @@ public class BlogController {
 		return "blog/admin-category";
 	}
 	@PostMapping("/admin/category/add")
-	public String addCategory(CategoryVo categoryVo) {
+	public String addCategory(
+			@PathVariable("id") String id,
+			CategoryVo categoryVo) {
 		categoryService.addCategory(categoryVo);
-		return "redirect:/" + categoryVo.getBlogId() + "/admin/category"; 
+		return "redirect:/" + id + "/admin/category"; 
+	}
+	@GetMapping("/admin/category/delete/{categoryId}")
+	public String deleteCategory(
+			@PathVariable("id") String id,
+			@PathVariable("categoryId") Long categoryId) {
+		categoryService.deleteCategory(categoryId);
+		return "redirect:/" + id + "/admin/category"; 
 	}
 	
 	/* 블로그 관리 글작성 페이지 */

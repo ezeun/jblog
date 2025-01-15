@@ -19,4 +19,8 @@ public class PostRepository {
         params.put("categoryId", categoryId);
 		return sqlSession.insert("post.insertDefault", params);
 	}
+
+	public int deleteByCategoryId(Long categoryId) {
+		return sqlSession.delete("post.deleteByCategoryId", categoryId);
+	}
 }

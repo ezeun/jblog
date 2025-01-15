@@ -7,6 +7,9 @@ public class PostVo {
 	private String regDate;
 	private Long categoryId;
 	
+	public Long getId() {
+		return id;
+	}
 	public String getTitle() {
 		return title;
 	}
