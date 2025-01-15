@@ -19,4 +19,13 @@
 		]]>	
 	</delete>
 	
+
+	<insert id="insert" parameterType="postvo">
+		<![CDATA[
+			insert 
+				into post 
+			values(null, #{title}, #{contents}, now(), #{categoryId})		
+		]]>
+	</insert>
+
 </mapper>

@@ -14,22 +14,27 @@ import org.springframework.web.multipart.MultipartFile;
 import jblog.service.BlogService;
 import jblog.service.CategoryService;
 import jblog.service.FileUploadService;
+import jblog.service.PostService;
 import jblog.vo.BlogVo;
 import jblog.vo.CategoryVo;
+import jblog.vo.PostVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}") //사용자ID (/jblog/assets는 제외)
 public class BlogController {
 	private final BlogService blogService;
 	private final CategoryService categoryService;
+	private final PostService postService;
 	private final FileUploadService fileUploadService;
 	
 	public BlogController(BlogService blogService,
 						  CategoryService categoryService,
+						  PostService postService,
 						  FileUploadService fileUploadService) {
 		this.blogService = blogService;
-		this.fileUploadService = fileUploadService;
 		this.categoryService = categoryService;
+		this.postService = postService;
+		this.fileUploadService = fileUploadService;
 	}
 	
 	/* 블로그 메인페이지 */
@@ -112,6 +117,14 @@ public class BlogController {
 			@PathVariable("id") String id,
 			Model model) {
 		model.addAttribute("blogVo", blogService.getBlog(id));
+		model.addAttribute("list", categoryService.getCategoryList(id));
 		return "blog/admin-write";
+	}
+	@PostMapping("/admin/write")
+	public String adminWritePost(
+			@PathVariable("id") String id,
+			PostVo postVo) {
+		postService.addPost(postVo);
+		return "redirect:/" + id;
 	}
 }
