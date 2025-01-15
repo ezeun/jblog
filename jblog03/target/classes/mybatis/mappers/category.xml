@@ -11,7 +11,7 @@
 		]]>
 	</insert>
 	
-	<select id="findAll" resultType="categoryvo">
+	<select id="findAll" parameterType="string" resultType="categoryvo">
 		<![CDATA[
 			SELECT c.id, 
 			       c.name, 
@@ -41,5 +41,29 @@
 				where id = #{id}
 		]]>	
 	</delete>
+		
+	<select id="findDefault" parameterType="string" resultType="categoryvo">
+		<![CDATA[
+			SELECT id, 
+			       name, 
+			       description, 
+			       blog_id AS blogId
+			FROM category
+			WHERE blog_id = #{blogId}
+				and name = '미분류'
+		]]>
+	</select>
+		
+	<select id="findRandomOne" parameterType="string" resultType="categoryvo">
+		<![CDATA[
+			SELECT id, 
+			       name, 
+			       description, 
+			       blog_id AS blogId
+			FROM category
+			WHERE blog_id = #{blogId}
+			limit 1
+		]]>
+	</select>
 	
 </mapper>

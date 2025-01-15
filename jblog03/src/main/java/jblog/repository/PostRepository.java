@@ -1,6 +1,7 @@
 package jblog.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -28,5 +29,17 @@ public class PostRepository {
 
 	public int insert(PostVo postVo) {
 		return sqlSession.insert("post.insert", postVo);
+	}
+
+	public Long findDefaultPostId(Long categoryId) {
+		return sqlSession.selectOne("post.findDefault", categoryId);
+	}
+
+	public List<PostVo> findAll(Long categoryId) {
+		return sqlSession.selectList("post.findAll", categoryId);
+	}
+
+	public PostVo findOne(Long postId) {
+		return sqlSession.selectOne("post.findOne", postId);
 	}
 }

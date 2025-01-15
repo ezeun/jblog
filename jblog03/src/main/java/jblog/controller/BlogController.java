@@ -56,11 +56,19 @@ public class BlogController {
 		}
 		
 		// 서비스에서~
-		// categoryId == 0L 이면 default categoryId를 세팅
-		// postId == 0L 이면 default postId를 세팅
-		System.out.println("BlogController.main(" + id + ", " + categoryId + ", " + postId + ")");
+		if(categoryId == 0L) { //default categoryId를 세팅
+			categoryId = categoryService.getDefaultCategoryId(id);
+		}
+		if(postId == 0L) { //default postId를 세팅
+			postId = postService.getDefaultPostId(categoryId);
+		}
+		System.out.println("\n\nBlogController.main(" + id + ", " + categoryId + ", " + postId + ")\n\n");
 		
 		model.addAttribute("blogVo", blogService.getBlog(id));
+		model.addAttribute("categoryList", categoryService.getCategoryList(id));
+		model.addAttribute("postList", postService.getPostList(categoryId));
+		model.addAttribute("postVo", postService.getPost(postId));
+		
 		return "blog/main";
 	}
 	

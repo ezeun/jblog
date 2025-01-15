@@ -7,7 +7,11 @@
 		<![CDATA[
 			insert 
 				into post 
-			values(null, '기본 글의 제목', '기본 글의 내용입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다.', now(), #{categoryId})		
+			values(null, 
+				   '기본 글의 제목', 
+				   '기본 글의 내용입니다.\n 이 글은 회원가입만 하면 자동으로 생성되는 글입니다.\n 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. 이 글은 회원가입만 하면 자동으로 생성되는 글입니다. ', 
+				   now(), 
+				   #{categoryId})		
 		]]>
 	</insert>
 	
@@ -27,5 +31,38 @@
 			values(null, #{title}, #{contents}, now(), #{categoryId})		
 		]]>
 	</insert>
+	
+	<select id="findDefault" parameterType="long" resultType="long">
+		<![CDATA[
+			SELECT id
+				FROM post
+				WHERE category_id = #{categoryId}
+			limit 1
+		]]>
+	</select>
 
+	<select id="findAll" parameterType="long" resultType="postvo">
+		<![CDATA[
+			SELECT id, 
+			       title, 
+			       contents, 
+			       reg_date AS regDate,
+			       category_id AS categoryId
+			FROM post
+			WHERE category_id = #{categoryId}
+		]]>
+	</select>
+
+			
+	<select id="findOne" parameterType="long" resultType="postvo">
+		<![CDATA[
+			SELECT id, 
+			       title, 
+			       contents, 
+			       reg_date AS regDate,
+			       category_id AS categoryId
+				FROM post
+				WHERE id = #{postId}
+		]]>
+	</select>
 </mapper>

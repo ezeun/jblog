@@ -43,4 +43,12 @@ public class CategoryRepository {
 	public int deleteById(Long categoryId) {
 		return sqlSession.delete("category.deleteById", categoryId);
 	}
+
+	public Long findDefaultCategoryId(String blogId) {
+		CategoryVo categoryVo = sqlSession.selectOne("category.findDefault", blogId);
+		if(categoryVo == null) { //미분류 카테고리를 삭제한 경우
+			categoryVo = sqlSession.selectOne("category.findRandomOne", blogId);
+		}
+		return categoryVo.getId();
+	}
 }

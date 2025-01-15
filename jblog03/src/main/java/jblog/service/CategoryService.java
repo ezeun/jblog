@@ -33,4 +33,8 @@ public class CategoryService {
 		categoryRepository.deleteById(categoryId);
 	}
 
+	public Long getDefaultCategoryId(String blogId) {
+		return categoryRepository.findDefaultCategoryId(blogId);
+	}
+
 }
