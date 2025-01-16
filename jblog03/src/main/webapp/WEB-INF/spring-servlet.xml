@@ -31,6 +31,10 @@
 			<mvc:mapping path="/user/logout"/>
 			<bean class="jblog.security.LogoutInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/{id}/admin/**"/>
+			<bean class="jblog.security.AuthInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!--  View Resolver  -->
